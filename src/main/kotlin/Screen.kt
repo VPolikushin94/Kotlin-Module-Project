@@ -7,10 +7,7 @@ class Screen(private val screenId: Int, private val selectedArchiveIndex: Int? =
     }
 
     private fun showContent() {
-        var archiveName: String = ""
-        if(selectedArchiveIndex != null) {
-            archiveName = Data.archiveList[selectedArchiveIndex].name
-        }
+        val archiveName = getArchiveName()
         UserDialog.showScreenName(screenId, archiveName)
 
         if((screenId == 0).or(screenId == 2)) {
@@ -58,6 +55,14 @@ class Screen(private val screenId: Int, private val selectedArchiveIndex: Int? =
             }
             contentSize + 1 -> menu.goBackBtn()
             else -> menu.selectItemBtn(2, inputInt - 1)
+        }
+    }
+
+    private fun getArchiveName(): String {
+        return if(selectedArchiveIndex != null) {
+            Data.archiveList[selectedArchiveIndex].name
+        } else {
+            ""
         }
     }
 }
