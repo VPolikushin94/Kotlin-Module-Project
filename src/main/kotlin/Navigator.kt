@@ -1,13 +1,13 @@
 object Navigator {
-    val stack = ArrayDeque<Int>()
+    private val stack = ArrayDeque<Int>()
 
-    fun nextScreen(screenId: Int, selectedItem: Int? = null) {
+    fun nextScreen(screenId: Int, selectedArchiveName: Int? = null) {
         stack.addLast(screenId)
-        val newScreen = Screen(screenId, selectedItem)
+        val newScreen = Screen(screenId, selectedArchiveName)
     }
 
-    fun goBack() {
+    fun goBack(selectedArchiveIndex: Int? = null) {
         stack.removeLast()
-        Screen(stack.last())
+        Screen(stack.last(), selectedArchiveIndex)
     }
 }

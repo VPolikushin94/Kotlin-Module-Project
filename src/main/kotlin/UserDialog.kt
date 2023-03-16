@@ -3,11 +3,11 @@ import java.util.Scanner
 
 object UserDialog {
 
-    fun showScreenName(screenId: Int) {
+    fun showScreenName(screenId: Int, archiveName: String = "") {
         val screenName = when(screenId) {
             0 -> "Выбор архива"
             1 -> "Создание архива"
-            2 -> "Выбор заметки"
+            2 -> "Вы в архиве \"$archiveName\""
             3 -> "Создания заметки"
             4 -> "Экран заметки"
             else -> "Error"
@@ -33,8 +33,9 @@ object UserDialog {
         return contentList.size
     }
 
-    fun showAddBtn() {
-        println("0. Создать")
+    fun showAddBtn(screenId: Int) {
+        val str = if(screenId == 0) "архив" else "заметку"
+        println("0. Создать $str")
     }
 
     fun showBackBtn(contentSize: Int) {
@@ -49,5 +50,9 @@ object UserDialog {
         println("Введите название:")
         return 0
     }
+
+    fun showChooseMessage() = println("Выберите один из пунктов и введите его номер:")
+
+    fun showWriteTextMessage() = println("Введите текст заметки:")
 
 }
