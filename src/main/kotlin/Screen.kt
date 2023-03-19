@@ -36,17 +36,24 @@ class Screen(
     }
 
     private fun getUsersChoice(contentSize: Int) {
-        val input = UserDialog.readInput()
+        val input = UserDialog.readInput(screenId)
 
         when(screenId) {
-            0, 2, 4 -> clickMenuBtn(input, contentSize)
+            0, 2, 4, 5 -> {
+                if (input != "Input Error") {
+                    clickMenuBtn(input, contentSize)
+                } else {
+                    showContent()
+                }
+            }
             1 -> {
                 Data.archiveList.add(Archive(input, mutableListOf()))
                 menu.goBackBtn()
             }
             3 -> {
                 UserDialog.showWriteTextMessage()
-                val text = UserDialog.readInput()
+                val text = UserDialog.readInput(screenId)
+
                 Data.archiveList[selectedArchiveIndex!!].noteList.add(Note(input, text))
                 menu.goBackBtn(selectedArchiveIndex)
             }
@@ -62,12 +69,17 @@ class Screen(
                     4 -> menu.firstBtn(screenId + 1, selectedArchiveIndex!!, selectedNoteIndex!!)
                 }
             }
-            contentSize + 1 -> menu.goBackBtn()
+            contentSize + 1 -> {
+                when(screenId) {
+                    4 -> menu.goBackBtn(selectedArchiveIndex!!)
+                    5 -> menu.goBackBtn(selectedArchiveIndex!!, selectedNoteIndex!!)
+                    else -> menu.goBackBtn()
+                }
+            }
             else -> {
-                if(selectedArchiveIndex != null)  {
-                    menu.selectItemBtn(screenId + 2, selectedArchiveIndex,inputInt - 1)
-                } else {
-                    menu.selectItemBtn(screenId + 2, inputInt - 1)
+                when(screenId) {
+                    2, 4 -> menu.selectItemBtn(screenId + 2, selectedArchiveIndex!!,inputInt - 1)
+                    else -> menu.selectItemBtn(screenId + 2, inputInt - 1)
                 }
             }
         }

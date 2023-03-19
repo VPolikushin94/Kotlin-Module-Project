@@ -6,10 +6,10 @@ object Navigator {
         Screen(screenId, selectedArchiveName, selectedNoteName)
     }
 
-    fun goBack(selectedArchiveIndex: Int? = null) {
+    fun goBack(selectedArchiveIndex: Int? = null, selectedNoteIndex: Int? = null) {
         stack.removeLast()
         if(stack.isNotEmpty()) {
-            Screen(stack.last(), selectedArchiveIndex)
+            Screen(stack.last(), selectedArchiveIndex, selectedNoteIndex)
         }
     }
 }

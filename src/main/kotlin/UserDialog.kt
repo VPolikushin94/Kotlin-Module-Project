@@ -3,6 +3,8 @@ import java.util.Scanner
 
 object UserDialog {
 
+    private var lastBtnNumber = 0
+
     fun showScreenName(screenId: Int, itemName: String = "", noteName: String = "") {
         val screenName = when(screenId) {
             0 -> "Выбор архива"
@@ -13,7 +15,7 @@ object UserDialog {
             5 -> "Название: $itemName"
             else -> "Error"
         }
-        println(screenName)
+        println('\n' + screenName)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -41,24 +43,44 @@ object UserDialog {
 
     fun showFirstBtn(screenId: Int) {
         val str = when(screenId) {
-            0 -> "Создать архив"
-            2 -> "Создать заметку"
+            0 -> "Создать новый архив"
+            2 -> "Создать новую заметку"
             4 -> "Посмотреть заметку"
             else -> "Wrong screenId"
         }
         println("0. $str")
     }
 
-    fun showBackBtn(contentSize: Int) = println("${contentSize + 1}. Назад")
+    fun showBackBtn(contentSize: Int) {
+        lastBtnNumber = contentSize + 1
+        println("$lastBtnNumber. Назад")
+    }
 
-    fun readInput(): String = Scanner(System.`in`).nextLine()
+    fun readInput(screenId: Int): String {
+        val input = Scanner(System.`in`).nextLine()
+        return if ((screenId != 1).and(screenId != 3)) {
+            if(InputHandler.isDigit(input)) {
+                if(InputHandler.isNumberInRange(input, lastBtnNumber)) {
+                    input
+                } else {
+                    println("Ошибка! Такой цифры в списке нет, введите правильное значение")
+                    "Input Error"
+                }
+            } else {
+                println("Ошибка! Введите цифру")
+                "Input Error"
+            }
+        } else {
+            input
+        }
+    }
 
     fun showCreatorHeader(): Int {
         println("Введите название:")
         return 0
     }
 
-    fun showChooseMessage() = println("Выберите один из пунктов и введите его номер:")
+    fun showChooseMessage() = println("\nВыберите один из пунктов и введите его номер:")
 
     fun showWriteTextMessage() = println("Введите текст заметки:")
 

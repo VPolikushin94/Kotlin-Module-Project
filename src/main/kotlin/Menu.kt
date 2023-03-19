@@ -20,6 +20,10 @@ class Menu {
         Navigator.goBack(selectedArchiveIndex)
     }
 
+    fun goBackBtn(selectedArchiveIndex: Int, selectedNoteIndex: Int) {
+        Navigator.goBack(selectedArchiveIndex, selectedNoteIndex)
+    }
+
     fun selectItemBtn(screenId: Int, selectedItem: Int) {
         Navigator.nextScreen(screenId, selectedItem)
     }
