@@ -1,11 +1,15 @@
 class Menu {
 
-    fun addBtn(screenId: Int) {
+    fun firstBtn(screenId: Int) {
         Navigator.nextScreen(screenId)
     }
 
-    fun addBtn(screenId: Int, selectedArchiveIndex: Int) {
+    fun firstBtn(screenId: Int, selectedArchiveIndex: Int) {
         Navigator.nextScreen(screenId, selectedArchiveIndex)
+    }
+
+    fun firstBtn(screenId: Int, selectedArchiveIndex: Int, selectedNoteIndex: Int) {
+        Navigator.nextScreen(screenId, selectedArchiveIndex, selectedNoteIndex)
     }
 
     fun goBackBtn() {
@@ -18,5 +22,9 @@ class Menu {
 
     fun selectItemBtn(screenId: Int, selectedItem: Int) {
         Navigator.nextScreen(screenId, selectedItem)
+    }
+
+    fun selectItemBtn(screenId: Int, selectedArchiveIndex: Int, selectedItem: Int) {
+        Navigator.nextScreen(screenId, selectedArchiveIndex, selectedItem)
     }
 }
